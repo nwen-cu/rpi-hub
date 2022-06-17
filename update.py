@@ -14,20 +14,23 @@ config_file = Path('~/config.json').expanduser()
 main_file = Path('~/main.py').expanduser()
 
 if not update_dir.exists():
-    os.mkdir('/update')
+    print('Creating update workspace')
+    os.mkdir(Path('~/update').expanduser())
 
 # Retrieve key and endpoint from config file
 # Update from v3.x
 if not config_file.exists():
+    print('Migrating from old version(~v3.x)')
     with open(main_file, 'r') as fp:
         fs = fp.read()
-
+    print('Retrieving config from script file')
     m = re.search("endpoint.*=.*'(.*)'", fs)
     endpoint = m.groups(1)[0]
     m = re.search("key.*=.*'(.*)'", fs)
     key = m.groups(1)[0]
 # Update from v4.x
 else:
+    print('Retrieving config from config file')
     with open(config_file, 'r') as fp:
         config = json.load(fp)
     
@@ -35,15 +38,18 @@ else:
     key = config['key']
 
 # Download main.py
+print('Downloading new script file')
 r = requests.get(main_url)
 
 with open(update_dir / 'main.py', 'w') as fp:
     fp.write(r.text)
 
 # Download config.json
+print('Downloading new config file')
 r = requests.get(config_url)
 
 # Update key and endpoint in config.json
+print('Writing config file')
 config = json.loads(r.text)
 config['endpoint'] = endpoint
 config['key'] = key
@@ -52,10 +58,14 @@ with open(update_dir / 'config.json', 'w') as fp:
     json.dump(config, fp)
 
 # Backup old main.py and config.json
+print('Backuping old version')
 shutil.move(main_file, update_dir / 'main.py.bak')
-shutil.move(config_file, update_dir / 'config.json.bak')
+if config_file.exists():
+    shutil.move(config_file, update_dir / 'config.json.bak')
 
+print('Applying update')
 shutil.move(update_dir / 'main.py', main_file)
 shutil.move(update_dir / 'config.json', config_file)
 
+print('Done')
 
