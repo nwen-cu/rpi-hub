@@ -1,0 +1,68 @@
+{
+    "debug": false,
+    "endpoint": "",
+    "key": "",
+    "update_remote_config": false,
+    "sensors": [
+        {
+            "id": "FUAEYAABKAYE4NBZGYQA0000",
+            "name": "THA-FUAEY",
+            "type": "LoRaTHA",
+            "report-interval": 60
+        },
+        {
+            "id": "FUADYAABKAYE4NBZGYQA0000",
+            "name": "THO-FUADY",
+            "type": "LoRaTHO",
+            "report-interval": 60
+        },
+        {
+            "id": "FMACSAABKAYE4NBZGYQA0000",
+            "name": "THA-FMACS",
+            "type": "LoRaTHA",
+            "report-interval": 60
+        },
+        {
+            "id": "FUADIAABKAYE4NBZGYQA0000",
+            "name": "THO-FUADI",
+            "type": "LoRaTHO",
+            "report-interval": 60
+        },
+        {
+            "id": "JMACEAAUKA3DATJZGUQA0000",
+            "name": "THA-JMACE",
+            "type": "LoRaTHA",
+            "report-interval": 60
+        },
+        {
+            "id": "FMABAAABKAYE4NBZGYQA0000",
+            "name": "THA-FMABA",
+            "type": "LoRaTHA",
+            "report-interval": 60
+        },
+        {
+            "id": "FQAFSAABKAYE4NBZGYQA0000",
+            "name": "THO-FQAFS",
+            "type": "LoRaTHO",
+            "report-interval": 60
+        },
+        {
+            "id": "FQABGAABKAYE4NBZGYQA0000",
+            "name": "THO-FQABG",
+            "type": "LoRaTHO",
+            "report-interval": 60
+        },
+        {
+            "id": "FUACUAABKAYE4NBZGYQA0000",
+            "name": "THO-FUACU",
+            "type": "LoRaTHO",
+            "report-interval": 60
+        },
+        {
+            "id": "FUADUAABKAYE4NBZGYQA0000",
+            "name": "THO-FUADU",
+            "type": "LoRaTHO",
+            "report-interval": 60
+        }
+    ]
+}
