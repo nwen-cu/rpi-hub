@@ -12,6 +12,23 @@ config_url = 'https://raw.githubusercontent.com/nwen-cu/rpi-hub/main/config.json
 update_dir = Path('~/update').expanduser()
 config_file = Path('~/config.json').expanduser()
 main_file = Path('~/main.py').expanduser()
+update_file = Path('~/update.py').expanduser()
+
+print('Checking update of this script')
+r = requests.get(update_url)
+
+require_update = False
+with open(update_file, 'r') as fp:
+    if r.text != fp.read():
+        require_update = True
+
+if require_update:
+    print('Updating this script')
+    with open(update_file, 'w') as fp:
+        fp.write(r.text)
+    print('Updated, please re-run this script')
+    exit()
+
 
 if not update_dir.exists():
     print('Creating update workspace')
