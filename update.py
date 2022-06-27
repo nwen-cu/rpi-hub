@@ -54,6 +54,9 @@ else:
     endpoint = config['endpoint']
     key = config['key']
 
+print('Found endpoint:', endpoint)
+print('Found key:', key)
+
 # Download main.py
 print('Downloading new script file')
 r = requests.get(main_url)
