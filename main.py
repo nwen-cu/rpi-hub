@@ -22,8 +22,8 @@ version = '4.3'
 log_filename = 'hub.log'
 logging.basicConfig(filename=log_filename, level=logging.DEBUG)
 
-endpoint = 'https://doe-building-america.cu-isee.org/sensors'
-key = 'PB6bMDXk99jMCK35qkdgNVc7dKAGLFNaFPy5LrYuyYmPNGnnX6RM3eJ9ZcbrTRdG'
+endpoint = ''
+key = ''
 
 debug = False
 update_remote = False
@@ -77,6 +77,8 @@ class CloudEndpoint():
                 self.running.set()
                 self.queue_lock.acquire()
                 for sensor_id in self.submission_queues:
+                    if self.submission_queues[sensor_id].empty():
+                        continue
                     records = list()
                     while not self.submission_queues[sensor_id].empty():
                         timestamp, readings = self.submission_queues[sensor_id].get()
