@@ -41,10 +41,10 @@ if not config_file.exists():
     with open(main_file, 'r') as fp:
         fs = fp.read()
     print('Retrieving config from script file')
-    e = re.search("^endpoint.*=.*'(.*)'", fs)
-    endpoint = e.groups(1)[0]
-    k = re.search("^key.*=.*'(.*)'", fs)
-    key = k.groups(1)[0]
+    e = re.search("\nendpoint.*=.*'(.*)'", fs)
+    endpoint = e.group(1)
+    k = re.search("\nkey.*=.*'(.*)'", fs)
+    key = k.group(1)
 # Update from v4.x
 else:
     print('Retrieving config from config file')
