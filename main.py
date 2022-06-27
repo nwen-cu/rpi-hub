@@ -72,7 +72,6 @@ class CloudEndpoint():
         while not stop_signal.is_set():
             try:
                 if self.running.is_set():
-                    logging.debug('Skip pushing, running: {0}, pausing: {1}'.format(self.running.is_set(), self.pausing.is_set()))
                     return
                 self.running.set()
                 self.queue_lock.acquire()
