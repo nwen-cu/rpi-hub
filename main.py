@@ -83,18 +83,22 @@ class CloudEndpoint():
                         timestamp, readings = self.submission_queues[sensor_id].get()
                         records.append({'timestamp': timestamp, 'value': readings})
                     data = {'key': self.key, 'records': records}
-                    response = requests.post(self.endpoint + '/' + sensor_id + '/data', json=data)
-                    if response.ok:
-                        update_data = response.json()
-                        if not update_remote:
-                            sensors[sensor_id].update_config(update_data)
-                        self.queued -= len(records)
-                        self.pushed += len(records)
-                        current_status[3] = 'Queued/Pushed: {0}/{1}'.format(self.queued, self.pushed)
-                        current_status[4] = ''
-                    else:
+                    try:
+                        response = requests.post(self.endpoint + '/' + sensor_id + '/data', json=data)
+                        if response.ok:
+                            update_data = response.json()
+                            if not update_remote:
+                                sensors[sensor_id].update_config(update_data)
+                            self.queued -= len(records)
+                            self.pushed += len(records)
+                            current_status[3] = 'Queued/Pushed: {0}/{1}'.format(self.queued, self.pushed)
+                            current_status[4] = ''
+                        else:
+                            for record in records:
+                                self.submission_queues[sensor_id].put((record['timestamp'], record['value']))
+                    except:
                         for record in records:
-                            self.submission_queues[sensor_id].put((record['timestamp'], record['value']))
+                                self.submission_queues[sensor_id].put((record['timestamp'], record['value']))
                 
             except Exception as e:
                 logging.exception('[Push]')
