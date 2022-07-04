@@ -316,7 +316,7 @@ def update_remote_sensor_info(sensor):
     response = requests.put(endpoint + '/' + sensor.sensor_id + '/info', json=data)
 
 def create_new_sensor_placeholder(sid):
-    sensor = LoRaTHSensor(sid, 'Unkn-' + sid[0:5], 60, pusher)
+    sensor = LoRaTHSensor(sid, 'TH-' + sid[0:5], 60, pusher)
     sensors[sid] = sensor
     return sensor
 
